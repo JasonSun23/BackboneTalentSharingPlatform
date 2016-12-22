@@ -1,0 +1,48 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<div class="main-title">
+		<h2>{$info['id']?'edit':'add'}Project</h2>
+	</div>
+	<form action="{:U()}" method="post" class="form-horizontal">
+		<div class="form-item">
+			<label class="item-label">Project_Name<span class="check-tips">（Project_Name）</span></label>
+			<div class="controls">
+				<input type="text" class="text input-large" name="Project_Name" value="{$info.project_name|default=''}">
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">End_Date<span class="check-tips">（End_Date）</span></label>
+			<div class="controls">
+				<input type="text" class="text input-small" name="End_Date" value="{$info.end_date|default=''}">
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">Quality<span class="check-tips">（Quality）</span></label>
+			<div class="controls">
+				<input type="text" class="text input-small" name="Quality" value="{$info.quality|default=''}">
+			</div>
+		</div>
+            
+		<div class="form-item">
+			<label class="item-label">Pro_Mgr_Talent_ID<span class="check-tips">（Pro_Mgr_Talent_ID）</span></label>
+			<div class="controls">
+				<input type="text" class="text input-small" name="Pro_Mgr_Talent_ID" value="{$info.pro_mgr_talent_id|default=''}">
+			</div>
+		</div>
+		<div class="form-item">
+			<input type="hidden" name="project_id" value="{$info.project_id|default=''}">
+			<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+			<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+		</div>
+	</form>
+</block>
+
+<block name="script">
+	<script type="text/javascript">
+		Think.setValue("type", {$info.type|default=0});
+		Think.setValue("group", {$info.group|default=0});
+		//导航高亮
+		highlight_subnav('{:U('Config/index')}');
+	</script>
+</block>

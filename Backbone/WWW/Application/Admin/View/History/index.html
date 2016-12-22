@@ -1,0 +1,368 @@
+<extend name="Public/base_1"/>
+<block name="body">
+	<div class="main-title">
+		<h2>{$meta_title}</h2>
+	</div>
+    <h2>{:get_nickname()}<button type="button">status:{$myInfo.status_text}</button><button type="button">level:{$myInfo.level}</button></h2>
+    XP:
+    <div class="progress">
+        <div class="progress-bar" style="width: {$myInfo[xp]/10}%"></div>
+    </div>
+	<div class="data-table table-striped">
+            <table>
+      
+                <tbody>
+                    <tr>
+                        <td>
+                            <table class="my-table" border="0" cellspacing="1" cellpadding="1">
+                                <caption align="top">Training History</caption>  
+                                 <thead>
+                                    <tr>
+                                        <th>T_End_Date<eq name='Think.get.trainingOrder1' value='1'><a href="{:U('',array('trainingOrder1'=>2))}">↓</a><else/><a href="{:U('',array('trainingOrder1'=>1))}">↑</a></eq></th>
+                                        <th>Training_Name</th>
+                                        <th>
+                                            <select name="Skill_Name">
+                                                <option value="{:U('')}">Skill_Name</option>
+                                                <volist name="trainingSelect1" id="vo">
+                                                    <option <eq name='Think.get.skill_id' value='$vo["skill_id"]'>selected</eq> value="{:U('',array('skill_id'=>$vo['skill_id']))}">{$vo['skill_name']}</option>
+                                                </volist>
+                                            </select>
+                                        </th>
+                                        <th>T_Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   <volist name="training" id="vo">
+					<tr>
+                                            <td>{$vo.end_date}</td>
+                                            <td>{$vo.training_name}</td>
+                                            <td>{$vo.skill_name}</td>
+                                            <td>{$vo.t_grade}</td>
+					</tr>
+                                    </volist>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                              <table class="my-table" border="0" cellspacing="1" cellpadding="1">
+                                <caption align="top">KPI & Salary History</caption>  
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div id='mykpi' style="height: 400px;width: 800px">1</div>
+                                            <div id='mykpi1' style="height: 400px;width: 800px">1</div>
+                                            <script type="text/javascript">
+                                                var myChart = echarts.init(document.getElementById('mykpi1'));
+                                                
+                                                option1 = {
+   
+                                                            tooltip: {
+                                                                trigger: 'item',
+                                                                formatter: '{a} <br/>{b} : {c}'
+                                                            },
+                                                            legend: {
+                                                                left: 'left',
+                                                                data: ['KPI Score', 'salary rank in company', 'salary rank in backbone','Score rank in company', 'Score rank in backbone']
+                                                            },
+                                                            xAxis: {
+                                                                type: 'category',
+                                                                name: 'x',
+                                                                splitLine: {show: false},
+                                                                data: [ <volist name="salary" id="vo">
+                                                                    '{$vo.kpi_period}',
+                                                                    </volist> ]
+                                                            },
+                                                            grid: {
+                                                                left: '3%',
+                                                                right: '4%',
+                                                                bottom: '3%',
+                                                                containLabel: true
+                                                            },
+                                                            yAxis: [{
+                                                                type: 'value',
+                                                                name: '排名',
+                                                                min: 0,
+                                                                max: 100,
+                                                                interval: 5,
+                                                                axisLabel: {
+                                                                    formatter: '{value} %'
+                                                                }
+                                                            },
+                                                                {
+                                                                    type: 'value',
+                                                                    name: 'Score',
+                                                                    min: 0,
+                                                                    max: 100,
+                                                                    interval: 5,
+                                                                    axisLabel: {
+                                                                        formatter: '{value} '
+                                                                    }
+                                                                }
+                                                        ],
+                                                            series: [
+                                                                {
+                                                                    name: 'KPI Score',
+                                                                    type: 'line',
+                                                                    data: [<volist name="salary" id="vo">
+                                                                    '{$vo.score}',
+                                                                    </volist>]
+                                                                },
+                                                                {
+                                                                    name: 'salary rank in company',
+                                                                    type: 'line',
+                                                                    data: [<volist name="salary" id="vo">
+                                                                    '{$vo.rank_c}',
+                                                                    </volist>]
+                                                                },
+                                                                {
+                                                                    name: 'salary rank in backbone',
+                                                                    type: 'line',
+                                                                    data: [<volist name="salary" id="vo">
+                                                                    '{$vo.rank_b}',
+                                                                    </volist>]
+                                                                },
+                                                                {
+                                                                    name: 'Score rank in company',
+                                                                    type: 'line',
+                                                                    data: [<volist name="salary" id="vo">
+                                                                    '{$vo.rank_c_1}',
+                                                                    </volist>]
+                                                                },
+                                                                {
+                                                                    name: 'Score rank in backbone',
+                                                                    type: 'line',
+                                                                    data: [<volist name="salary" id="vo">
+                                                                    '{$vo.rank_b_1}',
+                                                                    </volist>]
+                                                                }
+                                                            ]
+                                                        };
+                                                    myChart.setOption(option1);
+                                                    // 基于准备好的dom，初始化echarts实例
+                                                    var myChart = echarts.init(document.getElementById('mykpi'));
+
+                                                    // 指定图表的配置项和数据
+                                                    
+                                                        option = {
+                                                            tooltip: {
+                                                                trigger: 'axis'
+                                                            },
+                                                            legend: {
+                                                                data:['Score','Base_Salary','bonus']
+                                                            },
+                                                            xAxis: [
+                                                                {
+                                                                    type: 'category',
+                                                                   
+                                                                    data: [ <volist name="salary" id="vo">
+                                                                    '{$vo.kpi_period}',
+                                                                    </volist> ]
+                                                                }
+                                                            ],
+                                                            yAxis: [
+                                                                {
+                                                                    type: 'value',
+                                                                    name: 'money',
+                                                                    min: 0,
+                                                                    max: 100000,
+                                                                    interval: 5000,
+                                                                    axisLabel: {
+                                                                        formatter: '{value} $'
+                                                                    }
+                                                                },
+                                                                {
+                                                                    type: 'value',
+                                                                    name: 'Score',
+                                                                    min: 0,
+                                                                    max: 100,
+                                                                    interval: 5,
+                                                                    axisLabel: {
+                                                                        formatter: '{value} '
+                                                                    }
+                                                                }
+                                                            ],
+                                                            series: [
+                                                                {
+                                                                    name:'Base_Salary',
+                                                                    type:'bar',
+                                                                    data:[ <volist name="salary" id="vo">
+                                                                    '{$vo.base_salary}',
+                                                                    </volist>]
+                                                                },
+                                                                {
+                                                                    name:'bonus',
+                                                                    type:'bar',
+                                                                    data:[ <volist name="salary" id="vo">
+                                                                    '{$vo.bonus}',
+                                                                    </volist>]
+                                                                },
+                                                                {
+                                                                    name:'Score',
+                                                                    type:'line',
+                                                                    yAxisIndex: 1,
+                                                                    data:[ <volist name="salary" id="vo">
+                                                                    '{$vo.score}',
+                                                                    </volist>]
+                                                                }
+                                                            ]
+                                                        };
+
+
+                                                    // 使用刚指定的配置项和数据显示图表。
+                                                    myChart.setOption(option);
+                                                </script>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table>
+                                <caption align="top">Project History</caption>  
+                                
+                                <thead>
+                                    <tr>
+                                        <th>P_End_Date<eq name='Think.get.date_project' value='1'><a href="{:U('',array_merge(I(''),array('date_project'=>2)))}">↓</a><else/><a href="{:U('',array_merge(I(''),array('date_project'=>1)))}">↑</a></eq></th>
+                                        <th>Project_Name</th>
+                                        <th>
+                                             <select name="skill_project">
+                                                <option value='{:U("",array_diff_key (I(""),array("skill_project"=>0)))}'>Skill_Name</option>
+                                                <volist name="trainingSelect1" id="vo">
+                                                    <option <eq name='Think.get.skill_project' value='$vo[skill_id]'>selected</eq>  value='{:U("",array_merge(I(""),array("skill_project"=>"$vo[skill_id]")))}'>{$vo.skill_name}</option>
+                                                </volist>
+                                            </select>
+                                        </th>
+                                        <th>P_Grade</th>
+                                        <th>Quality</th>
+                                        <th>Pro_Mgr_Name</th>
+<!--                                        <th>Skill_Score<eq name='Think.get.skillOrder1' value='1'><a href="{:U('',array('skillOrder1'=>2))}">↓</a><else/><a href="{:U('',array('skillOrder1'=>1))}">↑</a></eq></th>
+                                        <th>Rank<eq name='Think.get.skillOrder1' value='3'><a href="{:U('',array('skillOrder1'=>4))}">↓</a><else/><a href="{:U('',array('skillOrder1'=>3))}">↑</a></eq></th>-->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   <volist name="project" id="vo">
+					<tr>
+                                            <td>{$vo.end_date}</td>
+                                            <td>{$vo.project_name}</td>
+                                            <td>{$vo.skill_name}</td>
+                                            <td>{$vo.p_grade}</td>
+                                            <td>{$vo.quality}</td>
+                                            <td>{$vo.f_name}</td>
+					</tr>
+                                    </volist>
+                                </tbody>
+                            </table>
+                        </td> 
+                        <td>
+                            <div id='skill' style="height: 400px;width: 1000px"></div>
+                                     <script type="text/javascript">
+                                                
+                                                    // 基于准备好的dom，初始化echarts实例
+                                                    var myChart = echarts.init(document.getElementById('skill'));
+
+                                                    // 指定图表的配置项和数据
+                                                    
+                                                        option = {
+                                                            tooltip: {
+                                                                trigger: 'axis'
+                                                            },
+                                                            legend: {
+                                                                data:[ <volist name="add" id="vo">
+                                                                    '{$key}',
+                                                                    </volist> ]
+                                                            },
+                                                            xAxis: [
+                                                                {
+                                                                    type: 'category',
+                                                                   
+                                                                    data: [ <volist name="result" id="vo">
+                                                                    '{$key}',
+                                                                    </volist> ]
+                                                                }
+                                                            ],
+                                                            yAxis: [
+                                                                {
+                                                                    type: 'value',
+                                                                    name: 'Skill_Score',
+                                                                    min: 0,
+                                                                    max: 100,
+                                                                    interval: 5,
+                                                                    axisLabel: {
+                                                                        formatter: '{value}'
+                                                                    }
+                                                                },
+                                                            ],
+                                                            series: [
+                                                                <volist name='add' id='vo'>
+                                                                {
+                                                                    name:'{$key}',
+                                                            <assign name="key1" value="$key"/>
+                                                                    type:'line',
+                                                                    data:[ <volist name="result" id="vo">
+                                                                    '{$vo[$key1]}',
+                                                                    </volist>]
+                                                                },
+                                                                </volist>
+                                                            ]
+                                                        };
+
+
+                                                    // 使用刚指定的配置项和数据显示图表。
+                                                    myChart.setOption(option);
+                                                </script>                               
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+$(function(){
+        $('select').on('change',function(){
+            window.location.href=this.value;
+        })
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+	//点击排序
+	$('.list_sort').click(function(){
+		var url = $(this).attr('url');
+		var ids = $('.ids:checked');
+		var param = '';
+		if(ids.length > 0){
+			var str = new Array();
+			ids.each(function(){
+				str.push($(this).val());
+			});
+			param = str.join(',');
+		}
+
+		if(url != undefined && url != ''){
+			window.location.href = url + '/ids/' + param;
+		}
+	});
+});
+</script>
+</block>

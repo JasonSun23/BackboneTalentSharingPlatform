@@ -1,0 +1,261 @@
+<extend name="Public/base_1"/>
+<block name="body">
+	
+	<div class="data-table table-striped">
+            <table>
+      
+                <tbody>
+                    
+                    <tr>
+                        <td colspan="2">
+                            <div class="data-table table-striped">
+		<table>
+			<thead>
+				<tr>
+					
+					<th>Talent_ID</th>
+					<th>Status
+                                            <select name="is_employee">
+                                                <option value="{:U('',array_diff_key(I(''),array('is_employee'=>0)))}">is_employee</option>
+                                                <option <eq name='Think.get.is_employee' value='1'>selected</eq>  value="{:U('',array_merge(I(''),array('is_employee'=>1)))}">Employee</option>
+                                                <option <eq name='Think.get.is_employee' value='2'>selected</eq>  value="{:U('',array_merge(I(''),array('is_employee'=>2)))}">unEmployee</option>
+                                            </select>
+                                        </th>
+					<th>L_Name</th>
+					<th>M_Name</th>
+					<th>F_Name</th>
+					<th>SSN</th>
+					<th>Gender</th>
+					<th>DoB</th>
+					<th>University_Name</th>
+					<th>
+                                            <select name="degree_list">
+                                                <option value="{:U('',array_diff_key(I(''),array('degree_list'=>'')))}">Degree</option>
+                                            <volist name=':C("DEGREE")' id="vo">
+                                                <option <eq name='Think.get.degree_list|default="999"' value='$key'>selected</eq>  value="{:U('',array_merge(I(''),array('degree_list'=>$key)))}">{$vo}</option>
+                                            </volist>
+                                            </select>
+                                        </th>
+					<th>GPA</th>
+					<th>
+                                            <select name="position_list">
+                                                <option value="{:U('',array_diff_key(I(''),array('position_list'=>0)))}">Position_Name</option>
+                                            <volist name='positionSelect' id="vo">
+                                                <option <eq name='Think.get.position_list' value='$vo["position_id"]'>selected</eq>  value="{:U('',array_merge(I(''),array('position_list'=>$vo["position_id"])))}">{$vo.position_name}</option>
+                                            </volist>
+                                            </select>
+                                        </th>
+					<th>
+                                            <select name="sid_list">
+                                                <option value="{:U('',array_diff_key(I(''),array('sid_list'=>'')))}">Skill_Name</option>
+                                            <volist name='sidSelect' id="vo">
+                                                <option <eq name='Think.get.sid_list' value='$vo["skill_id"]'>selected</eq>  value="{:U('',array_merge(I(''),array('sid_list'=>$vo["skill_id"])))}">{$vo.skill_name}</option>
+                                            </volist>
+                                            </select>
+                                            
+                                            
+                                                 <select name="sscore_list">
+                                                <option value="{:U('',array_diff_key(I(''),array('sscore_list'=>0)))}">Skill_Score</option>
+                                                <option <eq name='Think.get.sscore_list' value='1'>selected</eq>  value="{:U('',array_merge(I(''),array('sscore_list'=>1)))}">0-20</option>
+                                                <option <eq name='Think.get.sscore_list' value='2'>selected</eq>  value="{:U('',array_merge(I(''),array('sscore_list'=>2)))}">20-40</option>
+                                                <option <eq name='Think.get.sscore_list' value='3'>selected</eq>  value="{:U('',array_merge(I(''),array('sscore_list'=>3)))}">40-60</option>
+                                                <option <eq name='Think.get.sscore_list' value='4'>selected</eq>  value="{:U('',array_merge(I(''),array('sscore_list'=>4)))}">60-80</option>
+                                                <option <eq name='Think.get.sscore_list' value='5'>selected</eq>  value="{:U('',array_merge(I(''),array('sscore_list'=>5)))}">80-100</option>
+                                            </select>
+                                        </th>
+					<th>
+                                            <select name="xp_list">
+                                                <option value="{:U('',array_diff_key(I(''),array('xp_list'=>0)))}">XP</option>
+                                                <option <eq name='Think.get.xp_list' value='1'>selected</eq>  value="{:U('',array_merge(I(''),array('xp_list'=>1)))}">0-200</option>
+                                                <option <eq name='Think.get.xp_list' value='2'>selected</eq>  value="{:U('',array_merge(I(''),array('xp_list'=>2)))}">201-400</option>
+                                                <option <eq name='Think.get.xp_list' value='3'>selected</eq>  value="{:U('',array_merge(I(''),array('xp_list'=>3)))}">401-600</option>
+                                                <option <eq name='Think.get.xp_list' value='4'>selected</eq>  value="{:U('',array_merge(I(''),array('xp_list'=>4)))}">601-800</option>
+                                                <option <eq name='Think.get.xp_list' value='5'>selected</eq>  value="{:U('',array_merge(I(''),array('xp_list'=>5)))}">801-1000</option>
+                                            </select>
+                                        </th>
+					<th>
+                                            <select name="level_list">
+                                                <option value="{:U('',array_diff_key(I(''),array('level_list'=>0)))}">Level</option>
+                                                <option <eq name='Think.get.level_list' value='1'>selected</eq>  value="{:U('',array_merge(I(''),array('level_list'=>1)))}">0-20</option>
+                                                <option <eq name='Think.get.level_list' value='2'>selected</eq>  value="{:U('',array_merge(I(''),array('level_list'=>2)))}">20-40</option>
+                                                <option <eq name='Think.get.level_list' value='3'>selected</eq>  value="{:U('',array_merge(I(''),array('level_list'=>3)))}">40-60</option>
+                                                <option <eq name='Think.get.level_list' value='4'>selected</eq>  value="{:U('',array_merge(I(''),array('level_list'=>4)))}">60-80</option>
+                                                <option <eq name='Think.get.level_list' value='5'>selected</eq>  value="{:U('',array_merge(I(''),array('level_list'=>5)))}">80-100</option>
+                                            </select>
+                                        </th>
+				</tr>
+			</thead>
+			<tbody>
+				<notempty name="list">
+				<volist name="list" id="config">
+					<tr>
+						<td>{$config.talent_id}</td>
+						<td>{$config.status_text}</td>
+						<td>{$config.l_name}</td>
+						<td>{$config.m_name}</td>
+						<td>{$config.f_name}</td>
+						<td>{$config.ssn}</td>
+						<td>{$config.gender_text}</td>
+						<td>{$config.dob}</td>
+						<td>{$config.university_name}</td>
+						<td>{$config.degree_text}</td>
+						<td>{$config.gpa}</td>
+						<td>{$config.position_name|default='none'}</td>
+                                        
+						<td>{:get_skill($config["talent_id"])}</td>
+						<td>{$config.xp}</td>
+						<td>{$config.level}</td>
+					</tr>
+				</volist>
+				<else/>
+				<td colspan="6" class="text-center"> aOh!  </td>
+				</notempty>
+			</tbody>
+		</table>
+		<!-- 分页 -->
+	    <div class="page">
+	        {$_page}
+	    </div>
+	</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                              <table class="my-table" border="0" cellspacing="1" cellpadding="1">
+                                  <caption align="top">Project <a href="{:U('addProject')}"> add</a></caption>  
+                                
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <select name="year_project">
+                                                <option value="{:U('',array_diff_key(I(''),array('year_project'=>'')))}">P_End_Date</option>
+                                            <volist name='projectSelectYear' id="vo">
+                                                <option <eq name='Think.get.year_project' value='$vo["end_date"]'>selected</eq>  value="{:U('',array_merge(I(''),array('year_project'=>$vo["end_date"])))}">{$vo.end_date}</option>
+                                            </volist>
+                                            </select>
+                                            <eq name='Think.get.date_project' value='1'><a href="{:U('',array_merge(I(''),array('date_project'=>2)))}">↓</a><else/><a href="{:U('',array_merge(I(''),array('date_project'=>1)))}">↑</a></eq></th>
+                                        <th>Project_Name</th>
+                                        <th>
+                                            <select name="sid_project">
+                                                <option value="{:U('',array_diff_key(I(''),array('sid_project'=>'')))}">Skill_Name</option>
+                                            <volist name='sidSelect' id="vo">
+                                                <option <eq name='Think.get.sid_project' value='$vo["skill_id"]'>selected</eq>  value="{:U('',array_merge(I(''),array('sid_project'=>$vo["skill_id"])))}">{$vo.skill_name}</option>
+                                            </volist>
+                                            </select>
+                                        </th>
+                                        <th>Quality</th>
+                                        <th>Pro_Mgr_Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   <volist name="project" id="vo">
+					<tr>
+                                            <td>{$vo.end_date}</td>
+                                            <td>{$vo.project_name}</td>
+                                            <td>
+                                        <empty name='vo[skill_name]'><a href='{:U("addProjectSkill",array("Project_ID"=>$vo["project_id"]))}'>addSkill</a><else/>{$vo.skill_name}</empty>
+                                            </td>
+                                            <td>{$vo.quality}</td>
+                                            <td>{$vo.l_name}</td>
+					</tr>
+                                    </volist>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table>
+                                <caption align="top">Training <a href="{:U('addTraining')}"> add</a></caption>  
+                                
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <select name="year_training">
+                                                <option value="{:U('',array_diff_key(I(''),array('year_training'=>'')))}">T_End_Date</option>
+                                            <volist name='trainingSelectYear' id="vo">
+                                                <option <eq name='Think.get.year_training' value='$vo["end_date"]'>selected</eq>  value="{:U('',array_merge(I(''),array('year_training'=>$vo["end_date"])))}">{$vo.end_date}</option>
+                                            </volist>
+                                            </select>
+                                            <eq name='Think.get.date_training' value='1'><a href="{:U('',array_merge(I(''),array('date_training'=>2)))}">↓</a><else/><a href="{:U('',array_merge(I(''),array('date_training'=>1)))}">↑</a></eq>
+                                        </th>
+                                        <th>Training_Name</th>
+                                        <th>
+                                            <select name="sid_training">
+                                                <option value="{:U('',array_diff_key(I(''),array('sid_training'=>'')))}">Skill_Name</option>
+                                            <volist name='sidSelect' id="vo">
+                                                <option <eq name='Think.get.sid_training' value='$vo["skill_id"]'>selected</eq>  value="{:U('',array_merge(I(''),array('sid_training'=>$vo["skill_id"])))}">{$vo.skill_name}</option>
+                                            </volist>
+                                            </select>
+                                        </th>
+                                        <th>(Count) Talent_ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   <volist name="training" id="vo">
+					<tr>
+                                            <td>{$vo.end_date}</td>
+                                            <td>{$vo.training_name}
+                                            </td>
+                                            <td>
+                                            <empty name='vo[skill_name]'><a href='{:U("addTrainingSkill",array("Training_ID"=>$vo["training_id"]))}'>addSkill</a><else/>{$vo.skill_name}</empty>
+                                           </td>
+                                            <td>{$vo.count}</td>
+					</tr>
+                                    </volist>
+                                </tbody>
+                            </table>
+                        </td> 
+                    </tr>
+                </tbody>
+            </table>
+
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+$(function(){
+        $('select').on('change',function(){
+            window.location.href=this.value;
+        })
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+	//点击排序
+	$('.list_sort').click(function(){
+		var url = $(this).attr('url');
+		var ids = $('.ids:checked');
+		var param = '';
+		if(ids.length > 0){
+			var str = new Array();
+			ids.each(function(){
+				str.push($(this).val());
+			});
+			param = str.join(',');
+		}
+
+		if(url != undefined && url != ''){
+			window.location.href = url + '/ids/' + param;
+		}
+	});
+});
+</script>
+</block>

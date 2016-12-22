@@ -1,0 +1,39 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<div class="main-title">
+		<h2>{$info['id']?'edit':'add'}Project</h2>
+	</div>
+	<form action="{:U()}" method="post" class="form-horizontal">
+		<div class="form-item">
+			<label class="item-label">Addition<span class="check-tips">（Addition）</span></label>
+			<div class="controls">
+				<input type="text" class="text input-large" name="Addition" value="{$info.addition|default=''}">
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">Skill<span class="check-tips">（Skill）</span></label>
+			<div class="controls">
+				<select name="Skill_ID">
+					<volist name="skillSelect" id="vo">
+						<option value="{$vo.skill_id}">{$vo.skill_name}</option>
+					</volist>
+				</select>
+			</div>
+		</div>
+		<div class="form-item">
+			<input type="hidden" name="Project_ID" value="{$info.project_id|default=''}">
+			<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+			<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+		</div>
+	</form>
+</block>
+
+<block name="script">
+	<script type="text/javascript">
+		Think.setValue("type", {$info.type|default=0});
+		Think.setValue("group", {$info.group|default=0});
+		//导航高亮
+		highlight_subnav('{:U('Config/index')}');
+	</script>
+</block>
